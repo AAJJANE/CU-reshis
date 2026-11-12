@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Вход — Решись Авиа{% endblock %}
+{% block content %}
+<form method="post" class="card auth">
+    <h2>Вход</h2>
+    {% for message in get_flashed_messages() %}<p class="error">{{ message }}</p>{% endfor %}
+    <label>Логин
+        <input name="username" value="{{ username or '' }}" required autofocus>
+    </label>
+    <label>Пароль
+        <input type="password" name="password" required>
+    </label>
+    <button type="submit">Войти</button>
+    <p class="hint">Нет аккаунта? <a href="{{ url_for('register') }}">Зарегистрироваться</a></p>
+</form>
+{% endblock %}

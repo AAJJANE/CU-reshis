@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block content %}
+    <!-- Форма: данные отправляет JavaScript (static/app.js), страница не перезагружается -->
+    <form id="forecast-form" class="card form">
+        <label>Откуда
+            <select name="origin" required>
+                {% for city in origins %}<option>{{ city }}</option>{% endfor %}
+            </select>
+        </label>
+        <label>Куда
+            <select name="destination" required>
+                {% for city in destinations %}<option>{{ city }}</option>{% endfor %}
+            </select>
+        </label>
+        <label>Дата вылета
+            <input type="date" name="date" min="{{ first_date }}" max="{{ last_date }}" value="{{ first_date }}" required>
+        </label>
+        <label>Цена билета, ₽
+            <input type="number" name="price" min="1" step="any" placeholder="например, 9000" required>
+        </label>
+        <button type="submit">Рассчитать</button>
+    </form>
+
+    <p id="error" class="error" hidden></p>
+
+    <section id="result" hidden>
+        <h2 id="result-title"></h2>
+        <div class="stats">
+            <div class="card stat">
+                <div class="stat-label">Мест в самолётах</div>
+                <div class="stat-value" id="seats"></div>
+            </div>
+            <div class="card stat">
+                <div class="stat-label">Хотят купить (медиана)</div>
+                <div class="stat-value" id="wants"></div>
+            </div>
+            <div class="card stat accent">
+                <div class="stat-label">Купят</div>
+                <div class="stat-value" id="buys"></div>
+                <div class="stat-note" id="buys-note"></div>
+            </div>
+            <div class="card stat">
+                <div class="stat-label">Базовая / рекомендованная цена</div>
+                <div class="stat-value small" id="prices"></div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>Распределение спроса при цене <span id="chart-price"></span></h3>
+            <canvas id="chart" height="110"></canvas>
+            <p class="hint">
+                Каждый столбец — сценарий прогноза: например, 10% означает, что спрос окажется ниже этого
+                значения с вероятностью 10%. Между соседними столбцами спрос окажется с вероятностью 10%.
+                Тёмный столбец — медиана, красная линия — число мест: если столбцы выше неё,
+                продажи упираются в вместимость самолётов.
+            </p>
+        </div>
+    </section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='chart.umd.js') }}"></script>
+<script src="{{ url_for('static', filename='app.js') }}"></script>
+{% endblock %}

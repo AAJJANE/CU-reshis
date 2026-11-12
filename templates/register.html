@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Регистрация — Решись Авиа{% endblock %}
+{% block content %}
+<form method="post" class="card auth">
+    <h2>Регистрация</h2>
+    {% for message in get_flashed_messages() %}<p class="error">{{ message }}</p>{% endfor %}
+    <label>Логин
+        <input name="username" value="{{ username or '' }}" required autofocus
+               pattern="[A-Za-z0-9_]{3,30}" title="От 3 до 30 символов: латинские буквы, цифры и _">
+    </label>
+    <label>Пароль
+        <input type="password" name="password" minlength="6" required>
+    </label>
+    <label>Повторите пароль
+        <input type="password" name="password2" minlength="6" required>
+    </label>
+    <button type="submit">Зарегистрироваться</button>
+    <p class="hint">Уже есть аккаунт? <a href="{{ url_for('login') }}">Войти</a></p>
+</form>
+{% endblock %}

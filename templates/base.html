@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Решись Авиа{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<header class="header">
+    <div class="logo">✈ Решись Авиа</div>
+    <div class="subtitle">Прогноз продаж билетов</div>
+    {% if session.username %}
+        <div class="user">{{ session.username }} <a href="{{ url_for('logout') }}">Выйти</a></div>
+    {% endif %}
+</header>
+
+<main class="container">
+    {% block content %}{% endblock %}
+</main>
+
+{% block scripts %}{% endblock %}
+</body>
+</html>
