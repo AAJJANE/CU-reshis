@@ -45,13 +45,6 @@ https://janearshi.pythonanywhere.com/
 | `data/Arshinova_Evgeniya_Aleksandrovna_my_forecast.csv` | Мой прогноз спроса из ML-части (результат задания 7) |
 | `data/routes.csv` | Параметры маршрутов: базовая цена, чувствительность к цене |
 
-## Запуск на своём компьютере
-
-```bash
-pip install -r requirements.txt
-python app.py
-```
-
 Открыть в браузере: http://127.0.0.1:5000, зарегистрироваться и войти.
 База пользователей и секретный ключ создаются автоматически при первом запуске.
 
